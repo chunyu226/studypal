@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  --gradient-from: #eff6ff;
+  --gradient-to: #e0e7ff;
+}
+
+.dark {
+  --gradient-from: #0a0a1a;
+  --gradient-to: #0f172a;
+}
