@@ -1,9 +1,13 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import useTheme from './hooks/useTheme'
 import Navbar from './components/Navbar'
 import ThemeToggle from './components/ThemeToggle'
 import Hero from './components/Hero'
 import ProjectShowcase from './components/ProjectShowcase'
 import AboutSection from './components/AboutSection'
+import DashboardLayout from './components/DashboardLayout'
+import DashboardHome from './components/DashboardHome'
+import PlaceholderPage from './components/PlaceholderPage'
 
 const PlaceholderSection = ({ id, title }: { id: string; title: string }) => (
   <section
@@ -17,7 +21,7 @@ const PlaceholderSection = ({ id, title }: { id: string; title: string }) => (
   </section>
 )
 
-const App = () => {
+const BrandPage = () => {
   const { theme, toggle } = useTheme()
 
   return (
@@ -25,7 +29,6 @@ const App = () => {
       <Navbar theme={theme}>
         <ThemeToggle theme={theme} onToggle={toggle} />
       </Navbar>
-
       <main>
         <Hero theme={theme} />
         <ProjectShowcase />
@@ -35,5 +38,21 @@ const App = () => {
     </>
   )
 }
+
+const App = () => (
+  <BrowserRouter basename="/my-website">
+    <Routes>
+      <Route path="/" element={<BrandPage />} />
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<DashboardHome />} />
+        <Route path="courses" element={<PlaceholderPage title="课程" />} />
+        <Route path="notes" element={<PlaceholderPage title="笔记" />} />
+        <Route path="ai" element={<PlaceholderPage title="AI 建议" />} />
+        <Route path="settings" element={<PlaceholderPage title="设置" />} />
+        <Route path="*" element={<PlaceholderPage title="404" />} />
+      </Route>
+    </Routes>
+  </BrowserRouter>
+)
 
 export default App

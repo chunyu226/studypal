@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 
 interface NavbarProps {
   theme: 'light' | 'dark'
@@ -62,6 +63,12 @@ const Navbar = ({ theme, children }: NavbarProps) => {
               {item.label}
             </button>
           ))}
+          <Link
+            to="/dashboard"
+            className="rounded-lg bg-indigo-600 px-3 py-1.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700 dark:bg-cyan-500 dark:text-slate-950 dark:hover:bg-cyan-400"
+          >
+            学习助手
+          </Link>
           {children}
         </div>
 
@@ -109,6 +116,13 @@ const Navbar = ({ theme, children }: NavbarProps) => {
               {item.label}
             </button>
           ))}
+          <Link
+            to="/dashboard"
+            onClick={() => setIsOpen(false)}
+            className="rounded-lg bg-indigo-600 px-3 py-2 text-center text-sm font-medium text-white transition-colors hover:bg-indigo-700 dark:bg-cyan-500 dark:text-slate-950 dark:hover:bg-cyan-400"
+          >
+            学习助手
+          </Link>
         </div>
       </div>
     </nav>
