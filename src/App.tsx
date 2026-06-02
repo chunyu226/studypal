@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { AuthProvider } from './contexts/AuthContext'
 import useTheme from './hooks/useTheme'
 import Navbar from './components/Navbar'
 import ThemeToggle from './components/ThemeToggle'
@@ -7,7 +8,10 @@ import ProjectShowcase from './components/ProjectShowcase'
 import AboutSection from './components/AboutSection'
 import DashboardLayout from './components/DashboardLayout'
 import DashboardHome from './components/DashboardHome'
+import ProtectedRoute from './components/ProtectedRoute'
 import PlaceholderPage from './components/PlaceholderPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 const PlaceholderSection = ({ id, title }: { id: string; title: string }) => (
   <section
@@ -41,17 +45,28 @@ const BrandPage = () => {
 
 const App = () => (
   <BrowserRouter basename="/my-website">
-    <Routes>
-      <Route path="/" element={<BrandPage />} />
-      <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<DashboardHome />} />
-        <Route path="courses" element={<PlaceholderPage title="课程" />} />
-        <Route path="notes" element={<PlaceholderPage title="笔记" />} />
-        <Route path="ai" element={<PlaceholderPage title="AI 建议" />} />
-        <Route path="settings" element={<PlaceholderPage title="设置" />} />
-        <Route path="*" element={<PlaceholderPage title="404" />} />
-      </Route>
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<BrandPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<DashboardHome />} />
+          <Route path="courses" element={<PlaceholderPage title="课程" />} />
+          <Route path="notes" element={<PlaceholderPage title="笔记" />} />
+          <Route path="ai" element={<PlaceholderPage title="AI 建议" />} />
+          <Route path="settings" element={<PlaceholderPage title="设置" />} />
+          <Route path="*" element={<PlaceholderPage title="404" />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
   </BrowserRouter>
 )
 

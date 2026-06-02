@@ -1,7 +1,8 @@
 import { useState, useCallback, useEffect } from 'react'
-import { NavLink, Outlet, useLocation } from 'react-router-dom'
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import useTheme from '../hooks/useTheme'
 import ThemeToggle from './ThemeToggle'
+import { useAuth } from '../contexts/AuthContext'
 
 const NAV_ITEMS = [
   { label: '概览', to: '/dashboard', end: true },
@@ -13,8 +14,10 @@ const NAV_ITEMS = [
 
 const DashboardLayout = () => {
   const { theme, toggle } = useTheme()
+  const { user, logout } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     setSidebarOpen(false)
@@ -45,8 +48,33 @@ const DashboardLayout = () => {
         ))}
       </nav>
 
-      <div className="border-t border-slate-200 px-3 py-3 dark:border-slate-700">
-        <ThemeToggle theme={theme} onToggle={toggle} />
+      <div className="space-y-3 border-t border-slate-200 px-3 py-3 dark:border-slate-700">
+        {user && (
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-600 dark:bg-slate-600 dark:text-slate-200">
+              {user.name.charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-slate-900 dark:text-white">
+                {user.name}
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Lv.{user.level} · 🔥 {user.streak_days}天
+              </p>
+            </div>
+          </div>
+        )}
+        <div className="flex items-center justify-between">
+          <ThemeToggle theme={theme} onToggle={toggle} />
+          {user && (
+            <button
+              onClick={() => { logout(); navigate('/login') }}
+              className="rounded px-2 py-1 text-xs text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-600 dark:text-slate-500 dark:hover:bg-slate-700 dark:hover:text-slate-300"
+            >
+              退出
+            </button>
+          )}
+        </div>
       </div>
     </aside>
   )
