@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import PlaceholderPage from './components/PlaceholderPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import ChatPage from './pages/ChatPage'
 
 const PlaceholderSection = ({ id, title }: { id: string; title: string }) => (
   <section
@@ -62,6 +63,7 @@ const App = () => (
           <Route path="courses" element={<PlaceholderPage title="课程" />} />
           <Route path="notes" element={<PlaceholderPage title="笔记" />} />
           <Route path="ai" element={<PlaceholderPage title="AI 建议" />} />
+          <Route path="chat" element={<ChatPage />} />
           <Route path="settings" element={<PlaceholderPage title="设置" />} />
           <Route path="*" element={<PlaceholderPage title="404" />} />
         </Route>

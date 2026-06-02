@@ -8,7 +8,7 @@ const NAV_ITEMS = [
   { label: '概览', to: '/dashboard', end: true },
   { label: '课程', to: '/dashboard/courses' },
   { label: '笔记', to: '/dashboard/notes' },
-  { label: 'AI 建议', to: '/dashboard/ai' },
+  { label: 'AI 助手', to: '/dashboard/chat' },
   { label: '设置', to: '/dashboard/settings' },
 ]
 
