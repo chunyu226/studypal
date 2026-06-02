@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
-from .routers import auth, users, chat
+from .routers import auth, users, chat, analytics
 from .models.chat import Conversation, Message
 
 Base.metadata.create_all(bind=engine)
@@ -19,6 +19,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(chat.router)
+app.include_router(analytics.router)
 
 
 @app.get("/api/health")

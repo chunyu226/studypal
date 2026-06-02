@@ -45,7 +45,7 @@ const BrandPage = () => {
 }
 
 const App = () => (
-  <BrowserRouter basename="/my-website">
+  <BrowserRouter basename="/studypal">
     <AuthProvider>
       <Routes>
         <Route path="/" element={<BrandPage />} />

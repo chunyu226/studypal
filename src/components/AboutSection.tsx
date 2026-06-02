@@ -21,7 +21,7 @@ const Avatar = () => {
 
   return (
     <img
-      src="/my-website/images/avatar-placeholder.svg"
+      src="/studypal/images/avatar-placeholder.svg"
       alt="张老师的照片"
       loading="lazy"
       onError={() => setHasError(true)}
